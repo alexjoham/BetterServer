@@ -10,6 +10,11 @@ public class JoinMessage implements Listener {
     private String message;
     private ChatColor color;
 
+    /**
+     * Constructor of JoinMessage
+     * @param message default message
+     * @param color ChatColor of the message
+     */
     public JoinMessage(String message, String color) {
         this.message = message;
         this.color = ChatColor.valueOf(color);
@@ -20,12 +25,18 @@ public class JoinMessage implements Listener {
         e.setJoinMessage(color + getCastedMessage(e));
     }
 
+    /**
+     * This method searches for {} brackets and calls @code{getValueOf}
+     * @param e PlayerJoinEvent
+     * @return String message without {}-codes
+     */
     public String getCastedMessage(PlayerJoinEvent e) {
-        if (!message.contains("{"))
+        if (!message.contains("{")) //No code found
             return message;
         StringBuilder result = new StringBuilder();
-        while (message.contains("{")) {
-            if (!message.contains("}")) {
+        while (message.contains("{")) { //Still code in the String
+            if (!message.contains("}")) { //No closing bracket found
+                System.err.println("Missing } at message");
                 break;
             }
             result.append(message, 0, message.indexOf("{")).append(getValueOf(message.substring(message.indexOf("{") + 1, message.indexOf("}")), e));
@@ -37,6 +48,12 @@ public class JoinMessage implements Listener {
         return result.toString();
     }
 
+    /**
+     * Returns the String which is represented by the code
+     * @param code Input code
+     * @param e PlayerJoinEvent
+     * @return parsed code to String
+     */
     public String getValueOf(String code, PlayerJoinEvent e) {
         switch (code) {
             case "playername":

@@ -3,6 +3,9 @@ package de.alexjoham.ServerPlugin;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+
 public class ServerPlugin extends JavaPlugin {
 
 
@@ -16,9 +19,12 @@ public class ServerPlugin extends JavaPlugin {
 
     }
 
+    /**
+     * Load the config file
+     */
     private void loadConfigFile() {
         FileConfiguration configuration = this.getConfig();
-        configuration.addDefault("defaultWelcomeMessage", "Welcome back, {playername}!");
+        configuration.addDefault("defaultWelcomeMessage", "Welcome, {playername}!");
         configuration.addDefault("defaultWelcomeMessageColor", "GREEN");
         configuration.options().copyDefaults(true);
         saveConfig();
