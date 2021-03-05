@@ -1,0 +1,5 @@
+name: ServerPlugin
+version: 1.0
+author: Alexander Joham
+main: de.alexjoham.ServerPlugin.ServerPlugin
+api-version: 1.16
