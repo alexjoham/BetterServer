@@ -3,9 +3,6 @@ package de.alexjoham.ServerPlugin;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-
 public class ServerPlugin extends JavaPlugin {
 
 
