@@ -27,7 +27,7 @@ public class JoinMessage implements Listener {
 
     /**
      * This method searches for {} brackets and calls @code{getValueOf}
-     * @param e PlayerJoinEvent
+     * @param e PlayerJoinEvent needed for playername
      * @return String message without {}-codes
      */
     public String getCastedMessage(PlayerJoinEvent e) {
