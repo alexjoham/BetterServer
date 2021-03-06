@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="BetterServer:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/BetterServer_jar</output-path>
+    <output-path>$USER_HOME$/Spigot/Server/plugins</output-path>
     <root id="archive" name="BetterServer.jar">
       <element id="module-output" name="BetterServer" />
       <element id="extracted-dir" path="$USER_HOME$/Spigot/Server/spigot-1.16.5.jar" path-in-jar="/" />
