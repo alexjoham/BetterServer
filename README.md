@@ -1,5 +1,5 @@
 # BetterServer
-Spigot-Server Plugin which allows you to manage your server easier.
+Spigot-Server Plugin which allows you to manage your server easier. Download link can be found in the wiki.
 
 Functions:
  - Custom welcome messages
