@@ -1,28 +1,27 @@
 package de.alexjoham.ServerPlugin;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class JoinMessage implements Listener {
 
-    private String message;
-    private ChatColor color;
+    private JavaPlugin plugin;
 
     /**
      * Constructor of JoinMessage
-     * @param message default message
-     * @param color ChatColor of the message
+     * @param plugin Need for Config
      */
-    public JoinMessage(String message, String color) {
-        this.message = message;
-        this.color = ChatColor.valueOf(color);
+    public JoinMessage(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        e.setJoinMessage(color + getCastedMessage(e));
+        e.setJoinMessage(ChatColor.valueOf(plugin.getConfig().getString("defaultWelcomeMessageColor")) + getCastedMessage(e));
     }
 
     /**
@@ -31,6 +30,7 @@ public class JoinMessage implements Listener {
      * @return String message without {}-codes
      */
     public String getCastedMessage(PlayerJoinEvent e) {
+        String message = plugin.getConfig().getString("defaultWelcomeMessage");
         if (!message.contains("{")) //No code found
             return message;
         StringBuilder result = new StringBuilder();

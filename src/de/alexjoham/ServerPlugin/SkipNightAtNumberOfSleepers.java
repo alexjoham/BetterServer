@@ -30,47 +30,53 @@ public class SkipNightAtNumberOfSleepers implements Listener {
     public void onPlayerLyingDown(PlayerBedEnterEvent e) {
 
         World world = e.getPlayer().getWorld();
-        if (e.getBedEnterResult().compareTo(PlayerBedEnterEvent.BedEnterResult.OK) == 0) {
+        if (e.getBedEnterResult().equals(PlayerBedEnterEvent.BedEnterResult.OK)) {
             List<Player> list = sleepingPlayers.get(e.getPlayer().getWorld());
             if (list == null) {
                 list = new ArrayList<>();
             }
             list.add(e.getPlayer());
             sleepingPlayers.put(e.getPlayer().getWorld(), list);
-        }
-        if (playerNeededToSleep.equals("MAX")) {
-            if (sleepingPlayers.get(world).size() == server.getOnlinePlayers().stream().filter(entry -> !world.getName().contains("_nether")).toArray().length)
-                e.getPlayer().getWorld().setTime(1000);
-        } else if (playerNeededToSleep.contains("%")) {
-            int percent = 0;
-            try {
-                percent = Integer.parseInt(playerNeededToSleep.substring(0, playerNeededToSleep.length() - 2));
-            } catch (NumberFormatException exception) {
-                server.getLogger().logp(Level.SEVERE, this.toString(), "onPlayerLyingDown(PlayerBedEnterEvent e)", "Integer excpected, but was: " + playerNeededToSleep.substring(0, playerNeededToSleep.length() - 2), new Throwable(exception.getCause()));
+            if (playerNeededToSleep.equals("MAX")) {
+                numberIsNull(e);
+            } else if (playerNeededToSleep.contains("%")) {
+                int percent = 0;
+                try {
+                    percent = Integer.parseInt(playerNeededToSleep.substring(0, playerNeededToSleep.length() - 1));
+                } catch (NumberFormatException exception) {
+                    server.getLogger().logp(Level.SEVERE, this.toString(), "onPlayerLyingDown(PlayerBedEnterEvent e)", "Integer before % was expected, but was: " + playerNeededToSleep.substring(0, playerNeededToSleep.length() - 1), new Throwable(exception.getCause()));
+                }
+                if(percent == 0)
+                numberIsNull(e);
+                else {
+                    float sleeping = ((float) sleepingPlayers.get(e.getPlayer().getWorld()).size()) / ((float) e.getPlayer().getWorld().getPlayers().stream().filter(OfflinePlayer::isOnline).toArray().length);
+                    if (sleeping*100 >= percent) {
+                        e.getPlayer().getWorld().setTime(1000);
+                    }
+                }
+            } else {
+                int number = 0;
+                try {
+                    number = Integer.parseInt(playerNeededToSleep);
+                } catch (NumberFormatException exception) {
+                    server.getLogger().logp(Level.SEVERE, this.toString(), "onPlayerLyingDown(PlayerBedEnterEvent e)", "Integer expected, but was: " + playerNeededToSleep.substring(0, playerNeededToSleep.length() - 2), new Throwable(exception.getCause()));
+                }
+                if(number == 0)
+                numberIsNull(e);
+                else {
+                    int sleeping = sleepingPlayers.get(e.getPlayer().getWorld()).size();
+                    if (sleeping >= number) {
+                        e.getPlayer().getWorld().setTime(1000);
+                    }
+                }
             }
-            numberIsNull(e, percent);
-        } else {
-            int number = 0;
-            try {
-                number = Integer.parseInt(playerNeededToSleep);
-            } catch (NumberFormatException exception) {
-                server.getLogger().logp(Level.SEVERE, this.toString(), "onPlayerLyingDown(PlayerBedEnterEvent e)", "Integer excpected, but was: " + playerNeededToSleep.substring(0, playerNeededToSleep.length() - 2), new Throwable(exception.getCause()));
-            }
-            numberIsNull(e, number);
         }
     }
 
-    private void numberIsNull(PlayerBedEnterEvent e, int number) {
+    private void numberIsNull(PlayerBedEnterEvent e) {
         World world = e.getPlayer().getWorld();
-        if (number != 0) {
-            int sleeping = e.getPlayer().getWorld().getPlayers().stream().filter(OfflinePlayer::isOnline).toArray().length / sleepingPlayers.get(e.getPlayer().getWorld()).size();
-            if (sleeping >= number) {
-                e.getPlayer().getWorld().setTime(1000);
-            }
-        } else {
             if (sleepingPlayers.get(world).size() == server.getOnlinePlayers().stream().filter(entry -> !entry.getPlayer().getWorld().getName().contains("_nether")).toArray().length)
                 e.getPlayer().getWorld().setTime(1000);
-        }
     }
 
     @EventHandler
