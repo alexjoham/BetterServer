@@ -63,7 +63,9 @@ public class SkipNightAtNumberOfSleepers implements Listener {
                 }
                 if(number == 0)
                 numberIsNull(e);
-                else {
+                else if(number > e.getPlayer().getWorld().getPlayers().stream().filter(OfflinePlayer::isOnline).toArray().length) {
+                    numberIsNull(e);
+                }else{
                     int sleeping = sleepingPlayers.get(e.getPlayer().getWorld()).size();
                     if (sleeping >= number) {
                         e.getPlayer().getWorld().setTime(1000);
