@@ -25,8 +25,8 @@ public class ServerPlugin extends JavaPlugin {
      */
     private void loadConfigFile() {
         FileConfiguration configuration = this.getConfig();
-        configuration.addDefault("defaultWelcomeMessage", "Welcome, {playername}!");
-        configuration.addDefault("defaultWelcomeMessageColor", "GREEN");
+        configuration.addDefault("defaultWelcomeMessage", "{playername} joined the game");
+        configuration.addDefault("defaultWelcomeMessageColor", "YELLOW");
         configuration.addDefault("playersNeededToSleep", "MAX");
         configuration.options().copyDefaults(true);
         saveConfig();
