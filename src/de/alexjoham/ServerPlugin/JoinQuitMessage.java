@@ -4,10 +4,15 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class JoinMessage implements Listener {
+/**
+ * @author Alexander Joham
+ */
+public class JoinQuitMessage implements Listener {
 
     private JavaPlugin plugin;
 
@@ -15,13 +20,18 @@ public class JoinMessage implements Listener {
      * Constructor of JoinMessage
      * @param plugin Need for Config
      */
-    public JoinMessage(JavaPlugin plugin) {
+    public JoinQuitMessage(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.setJoinMessage(ChatColor.valueOf(plugin.getConfig().getString("defaultWelcomeMessageColor")) + getCastedMessage(e));
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        e.setQuitMessage(ChatColor.valueOf(plugin.getConfig().getString("defaultQuitMessageColor")) + getCastedMessage(e));
     }
 
     /**
@@ -31,6 +41,20 @@ public class JoinMessage implements Listener {
      */
     public String getCastedMessage(PlayerJoinEvent e) {
         String message = plugin.getConfig().getString("defaultWelcomeMessage");
+        return castString(message, e);
+    }
+
+    /**
+     * This method searches for {} brackets and calls @code{getValueOf}
+     * @param e PlayerJoinEvent
+     * @return String message without {}-codes
+     */
+    public String getCastedMessage(PlayerQuitEvent e) {
+        String message = plugin.getConfig().getString("defaultQuitMessage");
+        return castString(message, e);
+    }
+
+    private String castString(String message, PlayerEvent e) {
         if (!message.contains("{")) //No code found
             return message;
         StringBuilder result = new StringBuilder();
@@ -54,7 +78,7 @@ public class JoinMessage implements Listener {
      * @param e PlayerJoinEvent
      * @return parsed code to String
      */
-    public String getValueOf(String code, PlayerJoinEvent e) {
+    public String getValueOf(String code, PlayerEvent e) {
         switch (code) {
             case "playername":
                 return e.getPlayer().getName();
@@ -62,4 +86,6 @@ public class JoinMessage implements Listener {
                 return "Unknown code";
         }
     }
+
+
 }

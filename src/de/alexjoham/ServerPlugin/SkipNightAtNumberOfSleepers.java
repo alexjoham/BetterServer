@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.*;
 
+/**
+ * @author Alexander Joham
+ */
 public class SkipNightAtNumberOfSleepers implements Listener {
 
     private Server server;
