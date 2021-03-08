@@ -1,4 +1,4 @@
-package de.alexjoham.ServerPlugin;
+package de.alexjoham.BetterServer;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;

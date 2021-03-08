@@ -1,4 +1,4 @@
-package de.alexjoham.ServerPlugin;
+package de.alexjoham.BetterServer;
 
 
 import org.bukkit.ChatColor;
@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * @author Alexander Joham
  */
-public class ServerPlugin extends JavaPlugin {
+public class BetterServer extends JavaPlugin {
 
 
     public void onEnable() {

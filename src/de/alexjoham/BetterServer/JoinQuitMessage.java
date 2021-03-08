@@ -1,4 +1,4 @@
-package de.alexjoham.ServerPlugin;
+package de.alexjoham.BetterServer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
