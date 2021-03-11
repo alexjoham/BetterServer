@@ -14,7 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class JoinQuitMessage implements Listener {
 
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     /**
      * Constructor of JoinMessage

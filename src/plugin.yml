@@ -3,3 +3,12 @@ version: 1.0
 author: Alexander Joham
 main: de.alexjoham.BetterServer.BetterServer
 api-version: 1.16
+
+commands:
+  setWorldSpawn:
+    description: Sets the world spawn
+    usage: /<command>
+    permission: betterserver.command.setworldspawn
+
+
+

@@ -19,7 +19,7 @@ import java.util.logging.*;
  */
 public class SkipNightAtNumberOfSleepers implements Listener {
 
-    private Server server;
+    private final Server server;
     private String playerNeededToSleep;
     private HashMap<World, List<Player>> sleepingPlayers;
 

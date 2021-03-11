@@ -15,6 +15,8 @@ public class BetterServer extends JavaPlugin {
         loadConfigFile();
         getServer().getPluginManager().registerEvents(new JoinQuitMessage(this), this);
         getServer().getPluginManager().registerEvents(new SkipNightAtNumberOfSleepers(getServer(), this.getConfig().getString("playersNeededToSleep")), this);
+        getServer().getPluginManager().registerEvents(new DeathEvent(), this);
+        getCommand("setWorldSpawn").setExecutor(new setWorldSpawn());
         getServer().getConsoleSender().sendMessage("[BetterServer] " + ChatColor.BLUE + "plugin has been successfully enabled");
     }
 
