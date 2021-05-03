@@ -190,6 +190,9 @@ public class SkipNightAtNumberOfSleepers implements Listener {
      */
     private void setDay() {
         e.getPlayer().getWorld().setTime(1000);
+        if(e.getPlayer().getWorld().hasStorm()) { //Normally minecraft changes the weather while sleeping
+            e.getPlayer().getWorld().setStorm(false); //But the player doesnt really sleep so the plugin has to change the weather
+        }
     }
 
 
