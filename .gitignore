@@ -3,3 +3,12 @@
 BetterServer.iml
 out\
 .idea\
+/.idea/.gitignore
+/.idea/artifacts/BetterServer_jar.xml
+/.github/ISSUE_TEMPLATE/bug_report.md
+/.github/workflows/codeql-analysis.yml
+/.github/ISSUE_TEMPLATE/feature_request.md
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
