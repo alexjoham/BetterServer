@@ -15,7 +15,7 @@ public class BetterServer extends JavaPlugin {
         loadConfigFile();
         getServer().getPluginManager().registerEvents(new JoinQuitMessage(this), this);
         getServer().getPluginManager().registerEvents(new SkipNightAtNumberOfSleepers(getServer(), this.getConfig().getString("playersNeededToSleep"), this), this);
-        getServer().getPluginManager().registerEvents(new DeathEvent(), this);
+        getServer().getPluginManager().registerEvents(new DeathEvent(Boolean.parseBoolean(this.getConfig().getString("playersMayRespawnInBed"))), this);
         getCommand("setWorldSpawn").setExecutor(new setWorldSpawn());
         getServer().getConsoleSender().sendMessage("[BetterServer] " + ChatColor.BLUE + "plugin has been successfully enabled");
     }
@@ -34,6 +34,7 @@ public class BetterServer extends JavaPlugin {
         configuration.addDefault("defaultQuitMessage", "{playername} left the game");
         configuration.addDefault("defaultQuitMessageColor", "YELLOW");
         configuration.addDefault("playersNeededToSleep", "MAX");
+        configuration.addDefault("playersMayRespawnInBed", "true");
         configuration.options().copyDefaults(true);
         saveConfig();
     }
