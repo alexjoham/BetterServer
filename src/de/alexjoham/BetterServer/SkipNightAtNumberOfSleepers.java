@@ -14,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.*;
 
 /**
@@ -25,10 +26,10 @@ public class SkipNightAtNumberOfSleepers implements Listener {
     private final Server server;
 
     //Players needed to sleep to change the time to day
-    private String playerNeededToSleep;
+    private final String playerNeededToSleep;
 
     //All sleeping players on the whole server
-    private HashMap<World, List<Player>> sleepingPlayers;
+    private final HashMap<World, List<Player>> sleepingPlayers;
 
     //Needed to check if countdown is already running
     private boolean enoughPlayers;
@@ -154,7 +155,7 @@ public class SkipNightAtNumberOfSleepers implements Listener {
 
         World world = e.getPlayer().getWorld();
 
-        if (sleepingPlayers.get(world).size() == server.getOnlinePlayers().stream().filter(entry -> !entry.getPlayer().getWorld().getName().contains("_nether")).toArray().length) {
+        if (sleepingPlayers.get(world).size() == server.getOnlinePlayers().stream().filter(entry -> !Objects.requireNonNull(entry.getPlayer()).getWorld().getName().contains("_nether")).toArray().length) {
             setDay(world);
         }
     }
